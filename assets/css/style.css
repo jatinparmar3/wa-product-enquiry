@@ -1,0 +1,111 @@
+:root {
+    --wape-green: #25D366;
+    --wape-green-dark: #128C7E;
+    --wape-green-darker: #075E54;
+    --wape-ink: #111827;
+    --wape-soft: #f5f7fb;
+    --wape-border: #d7e2d9;
+}
+
+/* Button wrapper */
+.wape-button-wrap {
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+
+/* Main WhatsApp button */
+.wape-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    color: #ffffff !important;
+    background: var(--wape-green);
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.wape-btn:hover,
+.wape-btn:focus {
+    background: var(--wape-green-dark);
+    box-shadow: 0 4px 14px rgba(18, 140, 126, 0.35);
+    transform: translateY(-1px);
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+.wape-btn:active {
+    transform: translateY(0);
+    background: var(--wape-green-darker);
+}
+
+/* WhatsApp Icon */
+.wape-btn-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.wape-btn-icon svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* Button label */
+.wape-btn-label {
+    white-space: nowrap;
+}
+
+/* Admin styles */
+.wape-admin-wrap {
+    max-width: 1080px;
+}
+
+.wape-admin-wrap .wape-card {
+    background: #fff;
+    border: 1px solid var(--wape-border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 18px 0;
+}
+
+.wape-admin-wrap .wape-card h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: var(--wape-ink);
+}
+
+.wape-admin-wrap .wape-card h3 {
+    margin-bottom: 8px;
+}
+
+.wape-cpt-grid,
+.wape-field-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px 14px;
+    margin-bottom: 10px;
+}
+
+.wape-thankyou-wrap .wape-btn {
+    margin-top: 8px;
+}
+
+@media (max-width: 782px) {
+    .wape-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
