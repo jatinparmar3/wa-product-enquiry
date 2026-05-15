@@ -24,5 +24,11 @@ require_once WAPE_PLUGIN_DIR . 'includes/class-wape-message-builder.php';
 require_once WAPE_PLUGIN_DIR . 'includes/class-wape-button-render.php';
 require_once WAPE_PLUGIN_DIR . 'includes/class-wape-hooks.php';
 require_once WAPE_PLUGIN_DIR . 'includes/class-wape-plugin.php';
+require_once WAPE_PLUGIN_DIR . 'includes/class-wape-display-manager.php';
+require_once WAPE_PLUGIN_DIR . 'includes/class-wape-message-scheduler.php';
+require_once WAPE_PLUGIN_DIR . 'includes/class-wape-button-styling.php';
+require_once WAPE_PLUGIN_DIR . 'includes/class-wape-product-variants.php';
+require_once WAPE_PLUGIN_DIR . 'includes/class-wape-page-builder-integration.php';
+require_once WAPE_PLUGIN_DIR . 'includes/class-wape-template-editor.php';
 
 WAPE_Plugin::init();

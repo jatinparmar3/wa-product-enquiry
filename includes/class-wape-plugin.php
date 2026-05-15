@@ -15,6 +15,13 @@ class WAPE_Plugin
     {
         load_plugin_textdomain('wa-product-enquiry', false, dirname(plugin_basename(WAPE_PLUGIN_FILE)) . '/languages');
 
+        // Initialize all feature classes
+        WAPE_Display_Manager::init();
+        WAPE_Message_Scheduler::init();
+        WAPE_Product_Variants::init();
+        WAPE_Page_Builder_Integration::init();
+        WAPE_Template_Editor::init();
+
         if (class_exists('WAPE_Settings')) {
             WAPE_Settings::init();
         }

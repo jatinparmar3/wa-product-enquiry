@@ -62,7 +62,8 @@ class WAPE_Message_Builder
             'variation' => isset($override['variation']) ? (string) $override['variation'] : '',
         );
 
-        return $context;
+        // Allow filtering of context for extensibility
+        return apply_filters('wape_post_context', $context, $post_id);
     }
 
     public static function build_order_message($order, $template, $extra = array())

@@ -160,7 +160,76 @@ class WAPE_Settings
                 </div>
 
                 <div class="wape-card">
-                    <h2><?php esc_html_e('WooCommerce Notifications', 'wa-product-enquiry'); ?></h2>
+                    <h2><?php esc_html_e('Button Styling & Positioning', 'wa-product-enquiry'); ?></h2>
+                    <?php 
+                    $button_styles = WAPE_Button_Styling::get_button_styles();
+                    $button_positions = WAPE_Button_Styling::get_button_positions();
+                    $style_settings = WAPE_Button_Styling::get_button_style_settings();
+                    ?>
+                    <table class="form-table" role="presentation">
+                        <tr>
+                            <th scope="row"><label for="wape_button_style"><?php esc_html_e('Button Style', 'wa-product-enquiry'); ?></label></th>
+                            <td>
+                                <select id="wape_button_style" name="button_style" class="regular-text">
+                                    <?php foreach ($button_styles as $value => $label) : ?>
+                                        <option value="<?php echo esc_attr($value); ?>" <?php selected($style_settings['style'], $value); ?>>
+                                            <?php echo esc_html($label); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="wape_button_position"><?php esc_html_e('Button Position', 'wa-product-enquiry'); ?></label></th>
+                            <td>
+                                <select id="wape_button_position" name="button_position" class="regular-text">
+                                    <?php foreach ($button_positions as $value => $label) : ?>
+                                        <option value="<?php echo esc_attr($value); ?>" <?php selected($style_settings['position'], $value); ?>>
+                                            <?php echo esc_html($label); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="wape_primary_color"><?php esc_html_e('Primary Color', 'wa-product-enquiry'); ?></label></th>
+                            <td>
+                                <input type="color" id="wape_primary_color" name="primary_color" value="<?php echo esc_attr($style_settings['primary_color']); ?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="wape_text_color"><?php esc_html_e('Text Color', 'wa-product-enquiry'); ?></label></th>
+                            <td>
+                                <input type="color" id="wape_text_color" name="text_color" value="<?php echo esc_attr($style_settings['text_color']); ?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="wape_show_mobile"><?php esc_html_e('Show on Mobile Devices', 'wa-product-enquiry'); ?></label></th>
+                            <td>
+                                <input type="checkbox" id="wape_show_mobile" name="show_on_mobile" value="yes" <?php checked($style_settings['show_on_mobile'], 'yes'); ?> />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="wape_show_desktop"><?php esc_html_e('Show on Desktop Devices', 'wa-product-enquiry'); ?></label></th>
+                            <td>
+                                <input type="checkbox" id="wape_show_desktop" name="show_on_desktop" value="yes" <?php checked($style_settings['show_on_desktop'], 'yes'); ?> />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="wape_dark_mode"><?php esc_html_e('Enable Dark Mode Support', 'wa-product-enquiry'); ?></label></th>
+                            <td>
+                                <input type="checkbox" id="wape_dark_mode" name="dark_mode_enabled" value="yes" <?php checked($style_settings['dark_mode_enabled'], 'yes'); ?> />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="wape-card">
+                    <h2><?php esc_html_e('Message Scheduling & Advanced Features', 'wa-product-enquiry'); ?></h2>
+                    <p><?php esc_html_e('Enable message scheduling to send WhatsApp messages at specific times.', 'wa-product-enquiry'); ?></p>
+                    <p><?php esc_html_e('Product variants are automatically detected and included in messages.', 'wa-product-enquiry'); ?></p>
+                    <p><?php esc_html_e('Dark mode is automatically detected from user preferences.', 'wa-product-enquiry'); ?></p>
+                </div>
                     <fieldset>
                         <label>
                             <input type="checkbox" name="enable_woo_owner_note" value="yes" <?php checked($settings['enable_woo_owner_note'], 'yes'); ?> />
@@ -233,6 +302,19 @@ class WAPE_Settings
         $sanitized['woo_customer_template'] = sanitize_textarea_field(isset($_POST['woo_customer_template']) ? wp_unslash($_POST['woo_customer_template']) : $defaults['woo_customer_template']);
 
         update_option(WAPE_OPTION_KEY, wp_parse_args($sanitized, $defaults));
+
+        // Save button styling settings
+        $button_style_settings = array(
+            'style' => sanitize_key(isset($_POST['button_style']) ? wp_unslash($_POST['button_style']) : 'default'),
+            'position' => sanitize_key(isset($_POST['button_position']) ? wp_unslash($_POST['button_position']) : 'after'),
+            'primary_color' => sanitize_hex_color(isset($_POST['primary_color']) ? wp_unslash($_POST['primary_color']) : '#25D366'),
+            'text_color' => sanitize_hex_color(isset($_POST['text_color']) ? wp_unslash($_POST['text_color']) : '#FFFFFF'),
+            'show_on_mobile' => isset($_POST['show_on_mobile']) ? 'yes' : 'no',
+            'show_on_desktop' => isset($_POST['show_on_desktop']) ? 'yes' : 'no',
+            'dark_mode_enabled' => isset($_POST['dark_mode_enabled']) ? 'yes' : 'no',
+        );
+
+        WAPE_Button_Styling::save_style_settings($button_style_settings);
     }
 
     public static function sanitize_whatsapp_number($raw)
